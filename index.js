@@ -9,20 +9,21 @@ app.listen(port, () => console.log(`Example app listening at http://localhost:${
 //////////////////////////////////////////CÓDIGO DEL BOT////////////////////////////////
 // https://www.npmjs.com/package/distube/v/2.8.18
 // instalarlo aparte npm i distube@2.8.18
+//npm install discordjs/opus
 const Discord = require("discord.js");//añadir biblioteca discord
 const cleverbot = require("cleverbot-free");
-const client = new Discord.Client();//conectarse a discord
+const client = new Discord.Client({ restRequestTimeout: 60000 });//conectarse a discord
 const mySecret = process.env['token']; // el token
 const prefix = "/michel"; // prefijo
 let conversation = [];
-const ytdl = require('ytdl-core');//modulo de yt
+//const ytdl = require('ytdl-core');//modulo de yt
 const Distube = require('distube');
 const distube = new Distube(client, { searchsong: false, emitNewSongOnly: true });
 require('dotenv').config();
 
 client.on("ready", () => {
   console.log('esto tira');
-  client.user.setActivity(` la Huerta carrasco`, { type: "WATCHING" });
+  client.user.setActivity(`Huerta carrasco`, { type: "WATCHING" });
 });
 
 //Manejo de errores
@@ -169,8 +170,11 @@ client.on("message", async (message) => {
     if (!perms) return message.channel.send("No tienes permisos"); //Enviamos un mensaje si no tienes permisos
     if (!user) return message.channel.send("No has mencionado a nadie"); //Enviamos un mensaje si no has mencionado a nadie
     if (!mensaje) return message.channel.send("No has escrito el mensaje a enviar"); //Enviamos un mensaje si no se ha escribido el mensaje a enviar
-
-    user.send(mensaje); //Enviamos el mensaje al user
+    let max = 9;
+    let min = 0;
+    const numRandom = Math.floor(Math.random() * (max - min) + min)
+    const imgMichel = './michel/' + numRandom + '.png';
+    user.send(mensaje, { files: [imgMichel] }); //Enviamos el mensaje al user
     message.channel.send("Mensaje enviado correctamente"); //Enviamos un mensaje conforme estÃÂ¡ correcto y despues lo eliminaremos despues de un 10 segundos
   }
 
