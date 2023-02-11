@@ -10,6 +10,12 @@ app.listen(port, () => console.log(`Example app listening at http://localhost:${
 // https://www.npmjs.com/package/distube/v/2.8.18
 // instalarlo aparte npm i distube@2.8.18
 //npm install discordjs/opus
+// comandos 
+// /micheL <argumento>  -->es el bot cleverbot
+// /michel play, cola,siguiente,stop  --> bot de música.
+// /michel md @user <arg> --> envia un md al usuario
+// /michel /datos --> te da info del servidor
+// cuando entras en algún canal de voz de dira un mensaje personalizado
 const Discord = require("discord.js");//añadir biblioteca discord
 const cleverbot = require("cleverbot-free");
 const client = new Discord.Client({ restRequestTimeout: 60000 });//conectarse a discord
@@ -23,7 +29,7 @@ require('dotenv').config();
 
 client.on("ready", () => {
   console.log('esto tira');
-  client.user.setActivity(`Huerta carrasco`, { type: "WATCHING" });
+  client.user.setActivity(`la Huerta carrasco`, { type: "WATCHING" });
 });
 
 //Manejo de errores
@@ -39,16 +45,25 @@ process.on('unhandledRejection', error => {
 client.on('voiceStateUpdate', (oldState, newState) => {
   // use the .channelID property (.voice doesn't exist)
   const newUserChannel = newState.channelID;
-  const textChannel = client.channels.cache.get('938208142540537897', '761080145070522389');
+  const textChannel = client.channels.cache.get('938208142540537897');
+  const textChannel2 = client.channels.cache.get('761080145070522389');
 
-
-  if (newUserChannel === '816698939096170517' || newUserChannel === '824339916699074611') {
+  if (newUserChannel === '816698939096170517') {
     let max = 9;
     let min = 0;
     const numRandom = Math.floor(Math.random() * (max - min) + min);
     const frases = ['besame mi amooor necesito que me abraces con pasioon🎶🎶', 'que dise er tio 🚬🚬', 'no tendras un poquillo de drogi no 💉💉?', 'puuuuuteeee', 'la pooopeee', 'uuuuuaaaaaaaaaaooooooooh🐯🐯', 'el aguiluchoooo 🐦🐦', 'JAJJAJAJAJAAJ', 'MU BUENAS SU TIO']
     const imgMichel = './michel/' + numRandom + '.png';
     textChannel.send(frases[numRandom], { files: [imgMichel] });
+  }
+
+  if (newUserChannel === '824339916699074611') {
+    let max = 9;
+    let min = 0;
+    const numRandom = Math.floor(Math.random() * (max - min) + min);
+    const frases = ['besame mi amooor necesito que me abraces con pasioon🎶🎶', 'que dise er tio 🚬🚬', 'no tendras un poquillo de drogi no 💉💉?', 'puuuuuteeee', 'la pooopeee', 'uuuuuaaaaaaaaaaooooooooh🐯🐯', 'el aguiluchoooo 🐦🐦', 'JAJJAJAJAJAAJ', 'MU BUENAS SU TIO']
+    const imgMichel = './michel/' + numRandom + '.png';
+    textChannel2.send(frases[numRandom], { files: [imgMichel] });
   }
 });
 
@@ -115,6 +130,12 @@ client.on("message", async (message) => {
     if (!message.member.voice.channel) return message.channel.send('tendrás que estar en algun canal de voz no ?');
     if (!args[0]) return message.channel.send('dame una cancion o algo hulio');
     distube.play(message, args.join(" "));
+    let max = 9;
+    let min = 0;
+    const numRandom = Math.floor(Math.random() * (max - min) + min);
+    const frases = ['besame mi amooor necesito que me abraces con pasioon🎶🎶', 'que dise er tio 🚬🚬', 'no tendras un poquillo de drogi no 💉💉?', 'puuuuuteeee', 'la pooopeee', 'uuuuuaaaaaaaaaaooooooooh🐯🐯', 'el aguiluchoooo 🐦🐦', 'JAJJAJAJAJAAJ', 'MU BUENAS SU TIO']
+    const imgMichel = './michel/' + numRandom + '.png';
+
     message.channel.send(frases[numRandom]);
 
   }
